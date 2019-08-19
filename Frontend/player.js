@@ -6,7 +6,8 @@ class Player {
   }
 
   show() {
-    box.fillRect(this.x, this.y, 10, 10);
+    console.log("from the player show function");
+    // box.drawImage("dino.gif", this.x, this.y);
   }
 
   jump() {

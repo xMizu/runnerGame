@@ -10,7 +10,7 @@ class Player {
     this.jumping = false;
   }
 
-  show(box) {
+  draw(box) {
     box.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 

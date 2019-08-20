@@ -1,19 +1,19 @@
-export default class Player {
-  constructor() {
+class Player {
+  constructor(gameWindow, width, height) {
+    this.height = 32;
+    this.width = 32;
     this.x = 10;
-    this.y = 140;
-    this.vy = 0;
+    this.y = gameWindow.height - this.height;
+    this.image = new Image();
+    this.image.src = "dino.gif";
+    this.vely = -40;
   }
 
-  draw(ctx) {
-    ctx.drawImage("dino.gif", this.x, this.y);
+  draw(box) {
+    return box.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 
   jump() {
-    this.vy = -10;
-  }
-
-  move() {
-    this.y += this.vy;
+    this.y += this.vely;
   }
 }

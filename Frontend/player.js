@@ -9,7 +9,7 @@ class Player {
     this.vely = -40;
   }
 
-  draw(box) {
+  show(box) {
     return box.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 

@@ -4,7 +4,7 @@ let running = true
 //canvas
 const gameWindow = document.getElementById("gameWindow");
 const box = gameWindow.getContext("2d");
-gameWindow.width = 500;
+gameWindow.width = 300;
 gameWindow.height = 150;
 
 //background
@@ -15,13 +15,13 @@ let grass = new Image();
 grass.src = "Grass.png";
 
 //Testing for Class
-let player = new Player(gameWindow, 16, 16);
+let player = new Player(gameWindow, 32, 32);
 let arr = [{ x: 496, y: 135 }];
 
 //Event listener to look for Jump
 document.addEventListener("keypress", function(e) {
   if (e.key === " ") {
-    if (parseInt(player.y) === 136) {
+    if (parseInt(player.y) === gameWindow.height - player.height) {
       player.jump();
     }
   }
@@ -31,7 +31,7 @@ document.addEventListener("keypress", function(e) {
 function obstacleSpawner() {
   for (let i = 0; i < arr.length; i++) {
     box.drawImage(grass, arr[i].x, arr[i].y, 16, 16);
-    arr[i].x -= 2;
+    arr[i].x -= 4;
     if (arr[i].x < -20) {
       arr.push({
         x: parseInt(gameWindow.width + Math.random() * 300),
@@ -45,9 +45,9 @@ function obstacleSpawner() {
 function collision() {
   if (
     //check left
-    arr[0].x + 4 <= player.x + player.width - 4 &&
+    arr[0].x + 4 <= player.x + player.width - 5 &&
     //check right
-    player.x + 4 <= arr[0].x + 20 &&
+    player.x + 4 <= arr[0].x + 18 &&
     player.y + player.height - 5 >= arr[0].y
   ) {
     modal.style.display = "block";
@@ -59,23 +59,23 @@ function collision() {
   }
 }
 
-let deltaTime = 0;
-let lastTime = 0;
-
-function draw(time) {
-  deltaTime = time - lastTime;
+function draw() {
   box.clearRect(0, 0, gameWindow.width, gameWindow.height);
   
   if (bgWidth < -1536) {
     bgWidth = 0;
   } else {
-    bgWidth -= 1;
+    bgWidth -= 1.5;
   }
-  if (player.y < 136) {
-    player.y++;
-  }
+  // if (player.y < 136) {
+  //   player.y++;
+  // }
   box.drawImage(bg, bgWidth, 0);
+<<<<<<< HEAD
   player.show(box);
+=======
+  player.update(box);
+>>>>>>> Anthony
   box.fillText(`Hello World: ${i}`, 420, 20);
   obstacleSpawner();
   collision(arr);
@@ -86,6 +86,7 @@ function draw(time) {
   }
   i++;
 }
+<<<<<<< HEAD
 
 draw(0);
 
@@ -110,3 +111,6 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+=======
+draw();
+>>>>>>> Anthony

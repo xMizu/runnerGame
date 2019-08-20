@@ -1,9 +1,9 @@
 class Player {
   constructor(gameWindow, width, height) {
-    this.height = 32;
-    this.width = 32;
+    this.height = width;
+    this.width = height;
     this.x = 10;
-    this.y = gameWindow.height - this.height;
+    this.y = 136;
     this.image = new Image();
     this.image.src = "dino.gif";
     this.vely = -40;
@@ -15,5 +15,6 @@ class Player {
 
   jump() {
     this.y += this.vely;
+    this.x += 2;
   }
 }

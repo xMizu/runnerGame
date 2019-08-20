@@ -1,4 +1,7 @@
+import Player from "./player.js";
+
 document.addEventListener("DOMContentLoaded", () => {
+  let i = 0;
   //canvas
   const gameWindow = document.getElementById("gameWindow");
   let box = gameWindow.getContext("2d");
@@ -18,13 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
   grass.src = "Grass.png";
 
   //Testing for Class
-  //   let player = new Player();
+  let player = new Player();
   let arr = [{ x: 500, y: 300 }];
 
   //jump
   function jump() {
     if (parseInt(height) === gameWindow.height - 20) {
-      console.log("jumping");
       for (let i = 0; i <= 6000; i++) {
         height -= 0.005;
       }
@@ -43,22 +45,19 @@ document.addEventListener("DOMContentLoaded", () => {
   //   potential obstacle generator
   function obstacleSpawner() {
     for (let i = 0; i < arr.length; i++) {
-      console.log("in the grass for loop");
-      box.drawImage(grass, arr[i].x, 130);
-      arr[i].x -= 1;
-      if (Math.random() > 0.4) {
-        arr.push({ x: gameWindow.width + Math.random() * 10, y: 130 });
-      }
-      if (arr[i].x === 300) {
-        arr.push({ x: gameWindow.width + Math.random() * 10, y: 130 });
+      box.drawImage(grass, arr[i].x, arr[i].y);
+      arr[i].x -= 4;
+      if (arr[i].x < 0) {
+        arr.push({
+          x: parseInt(gameWindow.width + Math.random() * 300),
+          y: 130
+        });
+        arr.splice([i], 1);
       }
     }
   }
 
-  //random
-  //   let i = 0;
-  //   setInterval(obstacleSpawner, 3000);
-
+  // setInterval(spawn, 6000);
   //drawing all the items on browswer
   function draw() {
     if (bgWidth < -1536) {
@@ -71,9 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     box.clearRect(0, 0, gameWindow.width, gameWindow.height);
     box.drawImage(bg, bgWidth, 0);
-    box.drawImage(dino, 5, height);
+    // box.drawImage(dino, 5, height);
+    box.fillText(`Hello World: ${i}`, 420, 20);
     obstacleSpawner();
-    // obstacleSpawner();
     // if (i < 200 || i > 500) {
     //   box.drawImage(grass, 400 - i / 10, 130);
     // } else {
@@ -82,6 +81,5 @@ document.addEventListener("DOMContentLoaded", () => {
     window.requestAnimationFrame(draw);
     i++;
   }
-
   draw();
 });

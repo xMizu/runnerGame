@@ -3,18 +3,25 @@ class Player {
     this.height = width;
     this.width = height;
     this.x = 10;
-    this.y = 136;
+    this.y = gameWindow.height - this.height;
     this.image = new Image();
     this.image.src = "dino.gif";
-    this.vely = -40;
+    this.vely = gameWindow.height - this.height * 2;
+    this.jumping = false;
   }
 
   draw(box) {
-    return box.drawImage(this.image, this.x, this.y, this.width, this.height);
+    box.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 
   jump() {
-    this.y += this.vely;
-    this.x += 2;
+    this.y = this.vely;
+  }
+
+  update(box) {
+    if (this.y + this.height < gameWindow.height) {
+      this.y++;
+    }
+    this.draw(box);
   }
 }

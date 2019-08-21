@@ -1,6 +1,8 @@
+let stop;
 let i = 0;
 let something;
 let running = true;
+let collide = false;
 //canvas
 const gameWindow = document.getElementById("gameWindow");
 const box = gameWindow.getContext("2d");
@@ -16,12 +18,12 @@ grass.src = "Grass.png";
 
 //Testing for Class
 let player = new Player(gameWindow, 32, 32);
-let arr = [{ x: 496, y: 135 }];
+let arr = [{ x: 496, y: 135 }, { x: 800, y: 135 }];
 
 //Event listener to look for Jump
 document.addEventListener("keypress", function(e) {
   if (e.key === " ") {
-    if (parseInt(player.y) === gameWindow.height - player.height) {
+    if (parseInt(player.y) >= gameWindow.height - player.height) {
       player.jump();
     }
   }
@@ -51,15 +53,16 @@ function collision() {
     player.y + player.height - 5 >= arr[0].y
   ) {
     modal.style.display = "block";
-    console.log(something);
-    window.cancelAnimationFrame(something);
-    running = false;
-    console.log("cancel");
-    return "Hi";
+    collide = true;
   }
 }
 
-function draw() {
+let delta;
+let lastTime = 0;
+
+function draw(timestamp) {
+  let currentTime = timestamp;
+  delta = (currentTime - lastTime) / 1000;
   box.clearRect(0, 0, gameWindow.width, gameWindow.height);
 
   if (bgWidth < -1536) {
@@ -67,23 +70,16 @@ function draw() {
   } else {
     bgWidth -= 1.5;
   }
-  // if (player.y < 136) {
-  //   player.y++;
-  // }
   box.drawImage(bg, bgWidth, 0);
-  player.update(box);
+  player.draw(box);
+  player.update(delta);
   box.fillText(`Hello World: ${i}`, 420, 20);
   obstacleSpawner();
-  collision(arr);
-
-  console.log("starting");
-  if (running === true) {
-    something = window.requestAnimationFrame(draw);
-  }
+  collision();
+  collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
   i++;
+  lastTime = currentTime;
 }
-
-draw(0);
 
 // Get the modal
 const modal = document.getElementById("myModal");
@@ -102,3 +98,5 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 };
+
+requestAnimationFrame(draw);

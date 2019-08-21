@@ -52,6 +52,7 @@ function collision() {
     player.x + 4 <= arr[0].x + 18 &&
     player.y + player.height - 5 >= arr[0].y
   ) {
+    scoreHolder.innerText = `Your score was ${i}`;
     modal.style.display = "block";
     collide = true;
   }
@@ -83,14 +84,7 @@ function draw(timestamp) {
 
 // Get the modal
 const modal = document.getElementById("myModal");
-
-// Get the <span> element that closes the modal
-const span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-};
+const scoreHolder = document.getElementById("score-holder");
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {

@@ -26,4 +26,13 @@ class Obstacle {
   static lastElement() {
     return Obstacle.all[Obstacle.all.length - 1];
   }
+
+  static furthestBlock() {
+    let distance = 0;
+    Obstacle.all.forEach(grass => {
+      grass.x > distance;
+      distance = grass.x;
+    });
+    return distance;
+  }
 }

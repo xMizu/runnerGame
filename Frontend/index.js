@@ -2,6 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let i = 0;
   let collide = false;
   let triggers = ["click", "keydown"];
+  function spawnRate() {
+    let randNumber = Math.random();
+    if (randNumber < 0.5) {
+      return 0.5;
+    } else {
+      return randNumber;
+    }
+  }
+
   //canvas
   const gameWindow = document.getElementById("gameWindow");
   const box = gameWindow.getContext("2d");
@@ -28,15 +37,17 @@ document.addEventListener("DOMContentLoaded", () => {
   //   potential obstacle generator
   function obstacleSpawner() {
     if (Obstacle.all.length > 0) {
-      while (Obstacle.all.length < 4) {
-        let last = Obstacle.lastElement();
-
-        new Obstacle(gameWindow, 16, 16, last.x + Math.random() * 400);
+      while (Obstacle.all.length < 10) {
+        let last =
+          Obstacle.furthestBlock() > gameWindow.width
+            ? Obstacle.furthestBlock()
+            : gameWindow.width;
+        new Obstacle(gameWindow, 16, 16, last + spawnRate() * 250);
       }
       Obstacle.all.forEach((grass, index) => {
         obstacleRemover(grass, index);
         grass.move();
-        // collision(grass);
+        collision(grass);
       });
     } else {
       new Obstacle(gameWindow, 16, 16, gameWindow.width + 50);
@@ -44,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function obstacleRemover(grass, index) {
-    if (grass.x < -20) {
+    if (grass.x < -10) {
       Obstacle.all.splice(index, 1);
     }
   }
@@ -54,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       //check left
       grass.x + 4 <= player.x + player.width - 5 &&
       //check right
-      player.x + 4 <= grass.x + 18 &&
+      player.x + 4 <= grass.x + 16 &&
       player.y + player.height - 5 >= grass.y
     ) {
       scoreHolder.innerText = `Your score was ${i}`;
@@ -95,15 +106,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const highscoreList = document.getElementById("highscore-list")
-  fetch('http://localhost:3000/players')
-  .then(resp => resp.json())
-  .then(resp => resp.map(scorePlacer))
+  const highscoreList = document.getElementById("highscore-list");
+  fetch("http://localhost:3000/players")
+    .then(resp => resp.json())
+    .then(resp => resp.map(scorePlacer));
 
-  function scorePlacer(card){
-    scoreCardInstance = document.createElement("li")
-    scoreCardInstance.innerText = `${card.name}: ${card.score}`
-    highscoreList.append(scoreCardInstance)
+  function scorePlacer(card) {
+    scoreCardInstance = document.createElement("li");
+    scoreCardInstance.innerText = `${card.name}: ${card.score}`;
+    highscoreList.append(scoreCardInstance);
   }
 
   requestAnimationFrame(draw);

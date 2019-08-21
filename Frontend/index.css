@@ -8,14 +8,15 @@ body {
   width: 100vh;
   margin: auto;
   height: auto;
-  background-color: rgb(187, 215, 215);
+  background: url("astro.jpg") no-repeat center center;
+  background-size: cover;
 }
 
 canvas {
   width: 100%;
-  border: 1px solid black;
   margin: auto;
   margin-top: 50px;
+  background: none;
 }
 
 #high-score-section {
@@ -54,6 +55,7 @@ padding: 8px 0;
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+  border-radius: 8px;
 }
 
 #score-holder {
@@ -68,10 +70,10 @@ padding: 8px 0;
   background: aquamarine;
   font-size: 12px;
   font: black;
-  animation: pop 0.5s linear infinite alternate;
 }
 
 .modal-content button:hover {
+  animation: pop 0.5s linear infinite alternate;
   background: rgb(93, 184, 196);
 }
 

@@ -3,6 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let collide = false;
   let triggers = ["click", "keydown"];
   let lowestScoreOnTable;
+
+  function spawnRate() {
+    let randNumber = Math.random();
+    if (randNumber < 0.5) {
+      return 0.5;
+    } else {
+      return randNumber;
+    }
+  }
+
   //canvas
   const gameWindow = document.getElementById("gameWindow");
   const box = gameWindow.getContext("2d");
@@ -29,10 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
   //   potential obstacle generator
   function obstacleSpawner() {
     if (Obstacle.all.length > 0) {
-      while (Obstacle.all.length < 4) {
-        let last = Obstacle.lastElement();
-
-        new Obstacle(gameWindow, 16, 16, last.x + Math.random() * 400);
+      while (Obstacle.all.length < 10) {
+        let last =
+          Obstacle.furthestBlock() > gameWindow.width
+            ? Obstacle.furthestBlock()
+            : gameWindow.width;
+        new Obstacle(gameWindow, 16, 16, last + spawnRate() * 500);
       }
       Obstacle.all.forEach((grass, index) => {
         obstacleRemover(grass, index);
@@ -45,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function obstacleRemover(grass, index) {
-    if (grass.x < -20) {
+    if (grass.x < -10) {
       Obstacle.all.splice(index, 1);
     }
   }
@@ -75,8 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentTime = timestamp;
     delta = (currentTime - lastTime) / 1000;
     box.clearRect(0, 0, gameWindow.width, gameWindow.height);
-    bgWidth >= -1536 ? (bgWidth -= delta * 100) : (bgWidth = 0);
-    box.drawImage(bg, bgWidth, 0);
+    // bgWidth >= -1536 ? (bgWidth -= delta * 100) : (bgWidth = 0);
+    // box.drawImage(bg, bgWidth, 0);
     player.draw(box);
     player.update(delta);
     box.fillText(`Hello World: ${i}`, 420, 20);

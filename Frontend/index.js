@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let i = 0;
   let collide = false;
   let triggers = ["click", "keydown"];
+
   function spawnRate() {
     let randNumber = Math.random();
     if (randNumber < 0.5) {
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
           Obstacle.furthestBlock() > gameWindow.width
             ? Obstacle.furthestBlock()
             : gameWindow.width;
-        new Obstacle(gameWindow, 16, 16, last + spawnRate() * 250);
+        new Obstacle(gameWindow, 16, 16, last + spawnRate() * 500);
       }
       Obstacle.all.forEach((grass, index) => {
         obstacleRemover(grass, index);
@@ -81,8 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentTime = timestamp;
     delta = (currentTime - lastTime) / 1000;
     box.clearRect(0, 0, gameWindow.width, gameWindow.height);
-    bgWidth >= -1536 ? (bgWidth -= delta * 100) : (bgWidth = 0);
-    box.drawImage(bg, bgWidth, 0);
+    // bgWidth >= -1536 ? (bgWidth -= delta * 100) : (bgWidth = 0);
+    // box.drawImage(bg, bgWidth, 0);
     player.draw(box);
     player.update(delta);
     box.fillText(`Hello World: ${i}`, 420, 20);

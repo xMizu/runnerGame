@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Event listener to look for Jump
   triggers.forEach(trigger => {
-    document.addEventListener(trigger, function(e) {
+    document.addEventListener(trigger, () => {
       if (parseInt(player.y) >= gameWindow.height - player.height) {
         player.jump();
       }
@@ -30,31 +30,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //   potential obstacle generator
   function obstacleSpawner() {
-    // if (arr.length) {
-    //   for (let i = 0; i < arr.length; i++) {
-    //     box.drawImage(grass, arr[i].x, arr[i].y, 16, 16);
-    //     arr[i].x -= 4;
-    //     if (arr[i].x < -20) {
-    //       arr.push({
-    //         x: parseInt(gameWindow.width + Math.random() * 300),
-    //         y: 135
-    //       });
-    //       arr.splice([i], 1);
-    //     }
-    //   }
-    // } else {
+    if (Obstacle.all.length > 0) {
+      // for (let i = 0; i < arr.length; i++) {
+      while (Obstacle.all.length < 5) {
+        new Obstacle(gameWindow, 16, 16);
+      }
+      Obstacle.all.forEach((grass, index) => {
+        obstacleRemover(grass, index);
+        grass.move();
+      });
+      // }
+    } else {
+      new Obstacle(gameWindow, 16, 16);
+    }
+  }
 
-    arr.push(new Obstacle(gameWindow, 16, 16, 300));
-    // }
+  function obstacleRemover(grass) {
+    if (grass.x < -gameWindow.width * 2) {
+      Obstacle.all.shift();
+    }
   }
 
   function collision() {
     if (
       //check left
-      arr[0].x + 4 <= player.x + player.width - 5 &&
+      Obstacle.all[0].x + 4 <= player.x + player.width - 5 &&
       //check right
-      player.x + 4 <= arr[0].x + 18 &&
-      player.y + player.height - 5 >= arr[0].y
+      player.x + 4 <= Obstacle.all[0].x + 18 &&
+      player.y + player.height - 5 >= Obstacle.all[0].y
     ) {
       scoreHolder.innerText = `Your score was ${i}`;
       modal.style.display = "block";
@@ -75,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     player.update(delta);
     box.fillText(`Hello World: ${i}`, 420, 20);
     obstacleSpawner();
-    arr.forEach(element => {
+    Obstacle.all.forEach(element => {
       element.update(box);
     });
     collision();

@@ -19,7 +19,6 @@ class Player {
   }
 
   update(delta) {
-    console.log(this.y);
     if (this.jumping) {
       if (parseInt(this.y) <= gameWindow.height - this.height * 2) {
         this.jumping = false;

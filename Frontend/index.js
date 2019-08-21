@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let i = 0;
   let collide = false;
   let triggers = ["click", "keydown"];
+  let lowestScoreOnTable;
   //canvas
   const gameWindow = document.getElementById("gameWindow");
   const box = gameWindow.getContext("2d");
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Obstacle.all.forEach((grass, index) => {
         obstacleRemover(grass, index);
         grass.move();
-        // collision(grass);
+        collision(grass);
       });
     } else {
       new Obstacle(gameWindow, 16, 16, gameWindow.width + 50);
@@ -55,17 +56,21 @@ document.addEventListener("DOMContentLoaded", () => {
       grass.x + 4 <= player.x + player.width - 5 &&
       //check right
       player.x + 4 <= grass.x + 18 &&
+      //check top
       player.y + player.height - 5 >= grass.y
     ) {
-      scoreHolder.innerText = `Your score was ${i}`;
-      modal.style.display = "block";
       collide = true;
+      scoreHolder.innerText = `Your score was ${i + 1}`;
+      modal.style.display = "block";
+      if (i > lowestScoreOnTable){
+        highScoreReached()
+      }
     }
   }
-
+  
   let delta;
   let lastTime = 0;
-
+  
   function draw(timestamp) {
     let currentTime = timestamp;
     delta = (currentTime - lastTime) / 1000;
@@ -79,32 +84,72 @@ document.addEventListener("DOMContentLoaded", () => {
     Obstacle.all.forEach(element => {
       element.update(box);
     });
-    i++;
     lastTime = currentTime;
     collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
+    i++;
   }
-
+  
   // Get the modal
   const modal = document.getElementById("myModal");
   const scoreHolder = document.getElementById("score-holder");
-
+  
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
   };
-
-  const highscoreList = document.getElementById("highscore-list")
+  
+  const highscoreSection = document.getElementById("high-score-section")
   fetch('http://localhost:3000/players')
   .then(resp => resp.json())
-  .then(resp => resp.map(scorePlacer))
+  .then(resp => scorePlacer(resp))
+  
+  function scorePlacer(response){
+    highscoreSection.innerHTML = `
+    <table id="high-score-table">
+    <tr>
+    <td><b>1.</b></td>
+    <td id="highscore-name-1" >${response[0].name}</td>
+    <td id="highscore-score-1" >${response[0].score}</td>
+    </tr>
+    <tr>
+    <td><b>2.</b></td>
+    <td id="highscore-name-2" >${response[1].name}</td>
+    <td id="highscore-score-2" >${response[1].score}</td>
+    </tr>
+    <tr>
+    <td><b>3.</b></td>
+    <td id="highscore-name-3" >${response[2].name}</td>
+    <td id="highscore-score-3" >${response[2].score}</td>
+    </tr>
+    </table>`
+    lowestScoreOnTable = document.getElementById("highscore-score-3").innerText
+  }
+  
+  function highScoreReached(){
+    const saveUserForm = document.getElementById("save-user-form")
+    document.getElementById("save-user-score").style.display = "block";
+    saveUserForm.addEventListener("submit", (e) =>{
+      e.preventDefault()
+      console.log(i)
+      addNewUserToScore(e.target.firstname.value)
+    })
+  }
 
-  function scorePlacer(card){
-    scoreCardInstance = document.createElement("li")
-    scoreCardInstance.innerText = `${card.name}: ${card.score}`
-    highscoreList.append(scoreCardInstance)
+  function addNewUserToScore(name){
+    fetch('http://localhost:3000/players', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'application/json'
+      },
+      body: JSON.stringify({name: name, score: i})
+      })
   }
 
   requestAnimationFrame(draw);
 });
+
+
+

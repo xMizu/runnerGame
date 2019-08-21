@@ -6,8 +6,12 @@ class PlayersController < ApplicationController
   end
   
   def create
-    player = player.create
+    player = Player.create(player_params)
     
     render json: player
+  end
+  private
+  def player_params
+    params.require(:player).permit(:name, :score)
   end
 end

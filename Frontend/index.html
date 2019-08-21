@@ -11,15 +11,21 @@
     <canvas id="gameWindow"></canvas>
 
     <!-- Highscore box -->
-    <div class="high-score-section">
-      <ul id="highscore-list">
-      </ul>
+    <div id="high-score-section">
+        
     </div>
 
     <div id="myModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
         <p id="score-holder"></p>
+        <span id="save-user-score" >
+          <p>YOU GOT A HIGHSCORE!</p>
+          <form id="save-user-form">
+            <input  type="text" name="firstname" >
+            <input type="submit" value="Submit">
+          </form>
+      </span>
         <button onclick="window.location.reload(true);">New Game</button>
       </div>
     </div>

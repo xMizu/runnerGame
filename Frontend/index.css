@@ -64,11 +64,11 @@ padding: 8px 0;
   background: aquamarine;
   font-size: 12px;
   font: black;
+  animation: pop 0.5s linear infinite alternate;
 }
 
 .modal-content button:hover {
   background: rgb(93, 184, 196);
-  animation: pop 0.5s linear infinite alternate;
 }
 
 @keyframes pop {

@@ -1,9 +1,9 @@
 class Obstacle {
   static all = [];
-  constructor(gameWindow, width, height) {
+  constructor(gameWindow, width, height, x) {
     this.height = width;
     this.width = height;
-    this.x = gameWindow.width * (1 + Math.random());
+    this.x = x;
     this.y = gameWindow.height - this.height;
     this.image = new Image();
     this.image.src = "Grass.png";
@@ -21,5 +21,9 @@ class Obstacle {
 
   update(box) {
     this.draw(box);
+  }
+
+  static lastElement() {
+    return Obstacle.all[Obstacle.all.length - 1];
   }
 }

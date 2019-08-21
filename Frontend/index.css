@@ -18,6 +18,15 @@ canvas {
   margin-top: 50px;
 }
 
+.high-score-section {
+width: 130px;
+position: fixed;
+top: 20px;
+left: 10px;
+background: #eee;
+overflow-x: hidden;
+padding: 8px 0;
+}
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */

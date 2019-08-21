@@ -1,7 +1,8 @@
 class CreateGames < ActiveRecord::Migration[5.2]
   def change
     create_table :games do |t|
-      t.references :player, foreign_key: true
+      t.string :score
+      t.belongs_to :player, foreign_key: true
 
       t.timestamps
     end

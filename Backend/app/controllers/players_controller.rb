@@ -1,13 +1,13 @@
 class PlayersController < ApplicationController
-  def create
-  end
-
-  def edit
-  end
-
-  def delete
-  end
-
   def index
+    players = Player.all
+
+    render json: players
+  end
+  
+  def create
+    player = player.create
+    
+    render json: player
   end
 end

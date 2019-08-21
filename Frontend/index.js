@@ -98,5 +98,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const highscoreList = document.getElementById("highscore-list")
+  fetch('http://localhost:3000/players')
+  .then(resp => resp.json())
+  .then(resp => resp.map(scorePlacer))
+
+  function scorePlacer(card){
+    scoreCardInstance = document.createElement("li")
+    scoreCardInstance.innerText = `${card.name}: ${card.score}`
+    highscoreList.append(scoreCardInstance)
+  }
+
   requestAnimationFrame(draw);
 });

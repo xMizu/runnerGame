@@ -50,12 +50,10 @@ function collision() {
     player.x + 4 <= arr[0].x + 18 &&
     player.y + player.height - 5 >= arr[0].y
   ) {
+    scoreHolder.innerText = `Your score was ${i}`
     modal.style.display = "block";
-    console.log(something);
-    window.cancelAnimationFrame(something);
+    // window.cancelAnimationFrame(something);
     running = false;
-    console.log("cancel");
-    return "Hi";
   }
 }
 
@@ -76,7 +74,6 @@ function draw() {
   obstacleSpawner();
   collision(arr);
 
-  console.log("starting");
   if (running === true) {
     something = window.requestAnimationFrame(draw);
   }
@@ -90,6 +87,7 @@ const modal = document.getElementById("myModal");
 
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName("close")[0];
+const scoreHolder = document.getElementById("score-holder")
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {

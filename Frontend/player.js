@@ -6,7 +6,7 @@ class Player {
     this.y = gameWindow.height - this.height;
     this.image = new Image();
     this.image.src = "dino.gif";
-    this.vely = -100;
+    this.vely = -200;
     this.jumping = false;
   }
 

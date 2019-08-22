@@ -17,6 +17,15 @@ class Player {
     box.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 
+  hitbox() {
+    return {
+      x: this.x + 10,
+      y: this.y + 5,
+      width: this.width - 15,
+      height: this.height - 10
+    };
+  }
+
   jump() {
     this.jumping = true;
   }

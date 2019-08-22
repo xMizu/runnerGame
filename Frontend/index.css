@@ -81,29 +81,28 @@ canvas {
 
 .modal-content button:hover {
   animation: pop 0.5s linear infinite alternate;
-  background: rgb(93, 184, 196);
 }
 
 @keyframes pop {
   0% {
     font-size: 13px;
-    color: rgb(221, 92, 53);
+    background: aquamarine;
   }
   25% {
     font-size: 14px;
-    color: rgb(255, 196, 0);
+    background: rgb(255, 196, 0);
   }
   50% {
     font-size: 15px;
-    color: rgb(0, 255, 76);
+    background: rgb(0, 255, 76);
   }
   75% {
     font-size: 16px;
-    color: rgb(0, 162, 255);
+    background: rgb(0, 162, 255);
   }
   100% {
     font-size: 17px;
-    color: rgb(255, 0, 85);
+    background: rgb(255, 0, 85);
   }
 }
 

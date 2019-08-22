@@ -125,6 +125,19 @@ document.addEventListener("DOMContentLoaded", () => {
     i++;
   }
 
+  setInterval(swapImage, 90)
+
+  function swapImage(){
+    if (player.jumping === false){
+      if (player.image.src == "file:///Users/flatironschool/Development/mod3/Project-Mode/Mod3-Project/runnerGame/Frontend/dino-right-foot.png"){
+        player.image.src = "dino-left-foot.png"
+      } else if (player.image.src == "file:///Users/flatironschool/Development/mod3/Project-Mode/Mod3-Project/runnerGame/Frontend/dino-left-foot.png"){
+        player.image.src = "dino-right-foot.png"
+      }
+    }
+  }
+
+
   const highscoreSection = document.getElementById("high-score-table");
   fetch("http://localhost:3000/players")
     .then(resp => resp.json())

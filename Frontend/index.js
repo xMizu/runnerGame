@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let triggers = ["click", "keydown"];
   let lowestScoreOnTable;
   let highscore = []
+  const newGameButton = document.getElementById("new-game-button")
 
   function spawnRate() {
     let randNumber = Math.random();
@@ -77,6 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.style.display = "block";
       if (i > lowestScoreOnTable){
         highScoreReached()
+      } else {
+        newGameButton.addEventListener("click", (event) => {
+          window.location.reload(true)
+        })
       }
     }
   }
@@ -107,11 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreHolder = document.getElementById("score-holder");
   
   // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  };
+  // window.onclick = function(event) {
+  //   if (event.target == modal) {
+  //     modal.style.display = "none";
+  //   }
+  // };
   
   const highscoreSection = document.getElementById("high-score-table")
   fetch('http://localhost:3000/players')
@@ -133,12 +138,12 @@ document.addEventListener("DOMContentLoaded", () => {
   
   function highScoreReached(){
     const saveUserForm = document.getElementById("save-user-form")
-    const newGameButton = document.getElementById("new-game-button")
     document.getElementById("save-user-score").style.display = "block";
     saveUserForm.addEventListener("submit", (e) => e.preventDefault())
     newGameButton.addEventListener("click", (event) =>{
       if (saveUserForm.firstname.value){
         addNewUserToScore(saveUserForm.firstname.value)
+        window.location.reload(true)
       } else {
         alert("Please enter a name")
       }

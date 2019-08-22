@@ -20,11 +20,12 @@ canvas {
 }
 
 #high-score-section {
+text-align: left;
 width: 130px;
 position: fixed;
 top: 20px;
 left: 10px;
-background: #eee;
+background-color: rgba(255, 255, 255, 0.1);
 overflow-x: hidden;
 padding: 8px 0;
 }
@@ -32,6 +33,7 @@ padding: 8px 0;
 #save-user-score {
   display: none;
 }
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -48,18 +50,22 @@ padding: 8px 0;
 
 /* Modal Content/Box */
 .modal-content {
+  font-size: 32px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  background-color: #fefefe;
+  background-color: rgba(255, 255, 255, 0.2);
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
-  border-radius: 8px;
+  border-radius: 16px;
+  font-family: 'Orbitron', sans-serif;
 }
 
 #score-holder {
   text-align: center;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .modal-content button {

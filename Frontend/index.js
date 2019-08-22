@@ -34,9 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
       //check left
       grass.x + 4 <= player.x + player.width - 5 &&
       //check right
-      player.x + 4 <= grass.x + 18 &&
+      player.x + 4 <= grass.x + 15 &&
       //check top
-      player.y + player.height - 5 >= grass.y
+      player.y + player.height - 6 >= grass.y &&
+      //check bottom
+      player.y <= grass.y + grass.height / 2
     ) {
       collide = true;
       scoreHolder.innerText = `Your score was ${i + 1}`;
@@ -47,6 +49,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  let spawnRateX = () => {
+    let randNumberX = Math.random();
+    if (randNumberX < 0.4) {
+      randNumberX = 0.5;
+      return randNumberX;
+    } else {
+      return randNumberX;
+    }
+  };
+
+  let spawnRateY = () => {
+    let randNumberY = Math.random();
+    if (randNumberY < 0.5) {
+      randNumberY = gameWindow.height - player.height * 1.5;
+      return randNumberY;
+    } else {
+      randNumberY = 184;
+      return randNumberY;
+    }
+  };
+
   function obstacleSpawner() {
     if (Obstacle.all.length > 0) {
       while (Obstacle.all.length < 10) {
@@ -54,7 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
           Obstacle.furthestBlock() > gameWindow.width
             ? Obstacle.furthestBlock()
             : gameWindow.width;
-        new Obstacle(gameWindow, 16, 16, last + spawnRate() * 500);
+        new Obstacle(
+          gameWindow,
+          16,
+          16,
+          last + spawnRateX() * gameWindow.width,
+          spawnRateY()
+        );
       }
       Obstacle.all.forEach((grass, index) => {
         obstacleRemover(grass, index);
@@ -62,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         collision(grass);
       });
     } else {
-      new Obstacle(gameWindow, 16, 16, gameWindow.width + 50);
+      new Obstacle(gameWindow, 16, 16, gameWindow.width + 50, 184);
     }
   }
 

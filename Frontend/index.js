@@ -42,7 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
       scoreHolder.innerText = `Your score was ${i + 1}`;
       modal.style.display = "block";
       if (i > lowestScoreOnTable) {
-        highScoreReached();
+        highScoreReached(i);
+      } else {
+        newGameButton = document.getElementById("new-game-button");
+        newGameButton.addEventListener("click", event => {
+          window.location.reload(true);
+        });
       }
     }
   }

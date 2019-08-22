@@ -2,21 +2,22 @@
 const modal = document.getElementById("myModal");
 const scoreHolder = document.getElementById("score-holder");
 
-function highScoreReached() {
+function highScoreReached(i) {
   const saveUserForm = document.getElementById("save-user-form");
-  const newGameButton = document.getElementById("new-game-button");
+  const newGameHighScoreButton = document.getElementById("new-game-button");
   document.getElementById("save-user-score").style.display = "block";
   saveUserForm.addEventListener("submit", e => e.preventDefault());
-  newGameButton.addEventListener("click", event => {
+  newGameHighScoreButton.addEventListener("click", event => {
     if (saveUserForm.firstname.value) {
-      addNewUserToScore(saveUserForm.firstname.value);
+      addNewUserToScore(saveUserForm.firstname.value, i);
+      window.location.reload(true);
     } else {
       alert("Please enter a name");
     }
   });
 }
 
-function addNewUserToScore(name) {
+function addNewUserToScore(name, i) {
   fetch("http://localhost:3000/players", {
     method: "POST",
     headers: {

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let triggers = ["click", "keydown"];
   let lowestScoreOnTable;
   let highscore = [];
-
+  let obsVel = 6;
   //canvas
   const gameWindow = document.getElementById("gameWindow");
   const box = gameWindow.getContext("2d");
@@ -87,7 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
           16,
           16,
           last + spawnRateX() * gameWindow.width,
-          spawnRateY()
+          spawnRateY(),
+          obsVel
         );
       }
       Obstacle.all.forEach((grass, index) => {
@@ -96,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         collision(grass);
       });
     } else {
-      new Obstacle(gameWindow, 16, 16, gameWindow.width + 50, 184);
+      new Obstacle(gameWindow, 16, 16, gameWindow.width + 50, 184, obsVel);
     }
   }
 
@@ -118,6 +119,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     lastTime = currentTime;
     collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
+    if (i % 1000 === 0) {
+      obsVel--;
+    }
     i++;
   }
 

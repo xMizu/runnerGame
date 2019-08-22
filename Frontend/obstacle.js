@@ -1,19 +1,19 @@
 class Obstacle {
   static all = [];
-  constructor(gameWindow, width, height, x, y) {
+  constructor(gameWindow, width, height, x, y, obsVel) {
     this.height = width;
     this.width = height;
     this.x = x;
     this.y = y;
     this.image = new Image();
     this.image.src = "Grass.png";
-    this.velx = -7;
+    this.velx = obsVel;
     Obstacle.all.push(this);
   }
 
   draw(box) {
     box.drawImage(this.image, this.x, this.y, this.width, this.height);
-    box.strokeRect(this.x, this.y, this.width, this.height);
+    // box.strokeRect(this.x, this.y, this.width, this.height);
   }
 
   move() {

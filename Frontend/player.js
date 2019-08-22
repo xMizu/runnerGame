@@ -7,7 +7,7 @@ class Player {
     this.x = 10;
     this.y = gameWindow.height - this.height + 4;
     this.image = new Image();
-    this.image.src = "dino copy.gif";
+    this.image.src = "dino.gif";
     this.vely = -200;
     this.jumping = false;
     Player.all.push(this);
@@ -19,12 +19,14 @@ class Player {
 
   jump() {
     this.jumping = true;
+    this.image.src = "dino-jumping.png";
   }
 
   update(delta) {
     if (this.jumping) {
       if (parseInt(this.y) <= gameWindow.height - this.height * 2) {
         this.jumping = false;
+        this.image.src = "dino.gif"
       } else {
         this.y += this.vely * delta * 1.5;
       }

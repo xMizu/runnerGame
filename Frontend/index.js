@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       collide = true;
       scoreHolder.innerText = `Your score was ${i + 1}`;
       modal.style.display = "block";
-      if (i > lowestScoreOnTable.score){
+      if (i > lowestScoreOnTable){
         highScoreReached()
       }
     }
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(resp => resp.json())
   .then(resp => {
     highscore = resp;
-    lowestScoreOnTable = highscore[highscore.length - 1]
+    lowestScoreOnTable = highscore[2] ? highscore[2].score : 0
     highscore.forEach(scorePlacer)})
   
   function scorePlacer(player, index){
@@ -133,10 +133,15 @@ document.addEventListener("DOMContentLoaded", () => {
   
   function highScoreReached(){
     const saveUserForm = document.getElementById("save-user-form")
+    const newGameButton = document.getElementById("new-game-button")
     document.getElementById("save-user-score").style.display = "block";
-    saveUserForm.addEventListener("submit", (e) =>{
-      e.preventDefault()
-      addNewUserToScore(e.target.firstname.value)
+    saveUserForm.addEventListener("submit", (e) => e.preventDefault())
+    newGameButton.addEventListener("click", (event) =>{
+      if (saveUserForm.firstname.value){
+        addNewUserToScore(saveUserForm.firstname.value)
+      } else {
+        alert("Please enter a name")
+      }
     })
   }
 

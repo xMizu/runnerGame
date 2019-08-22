@@ -36,3 +36,18 @@ class Obstacle {
     return distance;
   }
 }
+
+function spawnRate() {
+  let randNumber = Math.random();
+  if (randNumber < 0.5) {
+    return 0.5;
+  } else {
+    return randNumber;
+  }
+}
+
+function obstacleRemover(grass, index) {
+  if (grass.x < -10) {
+    Obstacle.all.splice(index, 1);
+  }
+}

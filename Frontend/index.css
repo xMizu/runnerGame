@@ -17,17 +17,18 @@ canvas {
   margin: auto;
   margin-top: 50px;
   background: none;
+  border-bottom: 1px solid black;
 }
 
 #high-score-section {
-text-align: left;
-width: 130px;
-position: fixed;
-top: 20px;
-left: 10px;
-background-color: rgba(255, 255, 255, 0.1);
-overflow-x: hidden;
-padding: 8px 0;
+  text-align: left;
+  width: 130px;
+  position: fixed;
+  top: 20px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  overflow-x: hidden;
+  padding: 8px 0;
 }
 
 #save-user-score {
@@ -60,12 +61,12 @@ padding: 8px 0;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
   border-radius: 16px;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
 }
 
 #score-holder {
   text-align: center;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
 }
 
 .modal-content button {
@@ -84,13 +85,25 @@ padding: 8px 0;
 }
 
 @keyframes pop {
-  from {
-    font-size: 12px;
-    font: black;
+  0% {
+    font-size: 13px;
+    color: rgb(221, 92, 53);
   }
-  to {
+  25% {
+    font-size: 14px;
+    color: rgb(255, 196, 0);
+  }
+  50% {
+    font-size: 15px;
+    color: rgb(0, 255, 76);
+  }
+  75% {
     font-size: 16px;
-    font: white;
+    color: rgb(0, 162, 255);
+  }
+  100% {
+    font-size: 17px;
+    color: rgb(255, 0, 85);
   }
 }
 
@@ -100,7 +113,30 @@ padding: 8px 0;
   border: none;
   border-bottom: 1px solid black;
   margin-top: 8px;
+  margin-bottom: 8px;
   font-size: 24px;
   text-align: center;
   outline: none;
+  background: none;
+  font-family: "Orbitron", sans-serif;
+  animation: colorize 1s linear infinite alternate;
+  text-shadow: 1px 1px #2c2c2c;
+}
+
+@keyframes colorize {
+  0% {
+    color: rgb(221, 92, 53);
+  }
+  25% {
+    color: rgb(255, 196, 0);
+  }
+  50% {
+    color: rgb(0, 255, 76);
+  }
+  75% {
+    color: rgb(0, 162, 255);
+  }
+  100% {
+    color: rgb(255, 0, 85);
+  }
 }

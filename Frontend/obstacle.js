@@ -1,13 +1,13 @@
 class Obstacle {
   static all = [];
-  constructor(gameWindow, width, height, x) {
+  constructor(gameWindow, width, height, x, y) {
     this.height = width;
     this.width = height;
     this.x = x;
-    this.y = gameWindow.height - this.height;
+    this.y = y;
     this.image = new Image();
     this.image.src = "Grass.png";
-    this.velx = -5;
+    this.velx = -6;
     Obstacle.all.push(this);
   }
 
@@ -34,15 +34,6 @@ class Obstacle {
       distance = grass.x;
     });
     return distance;
-  }
-}
-
-function spawnRate() {
-  let randNumber = Math.random();
-  if (randNumber < 0.5) {
-    return 0.5;
-  } else {
-    return randNumber;
   }
 }
 

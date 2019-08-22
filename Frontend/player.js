@@ -5,7 +5,7 @@ class Player {
     this.height = width;
     this.width = height;
     this.x = 10;
-    this.y = gameWindow.height - this.height;
+    this.y = gameWindow.height - this.height + 4;
     this.image = new Image();
     this.image.src = "dino copy.gif";
     this.vely = -200;
@@ -31,6 +31,8 @@ class Player {
     } else {
       if (this.y < gameWindow.height - this.height) {
         this.y += Math.abs(this.vely) * delta * 0.75;
+      } else {
+        this.y = gameWindow.height - this.height + 4;
       }
     }
   }

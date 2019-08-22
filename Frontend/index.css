@@ -20,7 +20,6 @@ canvas {
 }
 
 #high-score-section {
-<<<<<<< HEAD
 text-align: left;
 width: 130px;
 position: fixed;
@@ -29,15 +28,6 @@ left: 10px;
 background-color: rgba(255, 255, 255, 0.1);
 overflow-x: hidden;
 padding: 8px 0;
-=======
-  width: 130px;
-  position: fixed;
-  top: 20px;
-  left: 10px;
-  background: #eee;
-  overflow-x: hidden;
-  padding: 8px 0;
->>>>>>> 3a40e3c2845fd2138938cb28b38cb93de96acb53
 }
 
 #save-user-score {

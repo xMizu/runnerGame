@@ -2,12 +2,6 @@
 const modal = document.getElementById("myModal");
 const scoreHolder = document.getElementById("score-holder");
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
 function highScoreReached() {
   const saveUserForm = document.getElementById("save-user-form");
   const newGameButton = document.getElementById("new-game-button");

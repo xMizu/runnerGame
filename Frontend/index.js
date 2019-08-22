@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       //check top
       player.y + player.height - 6 >= grass.y &&
       //check bottom
-      player.y <= grass.y + grass.height / 2
+      player.y <= grass.y + grass.height / 1.75
     ) {
       collide = true;
       scoreHolder.innerText = `Your score was ${i + 1}`;
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let spawnRateX = () => {
     let randNumberX = Math.random();
-    if (randNumberX < 0.4) {
+    if (randNumberX < 0.3) {
       randNumberX = 0.5;
       return randNumberX;
     } else {

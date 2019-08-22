@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let collide = false;
   let triggers = ["click", "keydown"];
   let lowestScoreOnTable;
+  let highscore = []
 
   function spawnRate() {
     let randNumber = Math.random();
@@ -74,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       collide = true;
       scoreHolder.innerText = `Your score was ${i + 1}`;
       modal.style.display = "block";
-      if (i > lowestScoreOnTable){
+      if (i > lowestScoreOnTable.score){
         highScoreReached()
       }
     }
@@ -112,39 +113,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
   
-  const highscoreSection = document.getElementById("high-score-section")
+  const highscoreSection = document.getElementById("high-score-table")
   fetch('http://localhost:3000/players')
   .then(resp => resp.json())
-  .then(resp => scorePlacer(resp))
+  .then(resp => {
+    highscore = resp;
+    lowestScoreOnTable = highscore[highscore.length - 1]
+    highscore.forEach(scorePlacer)})
   
-  function scorePlacer(response){
-    highscoreSection.innerHTML = `
-    <table id="high-score-table">
+  function scorePlacer(player, index){
+    highscoreSection.innerHTML += `
     <tr>
-    <td><b>1.</b></td>
-    <td id="highscore-name-1" >${response[0].name}</td>
-    <td id="highscore-score-1" >${response[0].score}</td>
-    </tr>
-    <tr>
-    <td><b>2.</b></td>
-    <td id="highscore-name-2" >${response[1].name}</td>
-    <td id="highscore-score-2" >${response[1].score}</td>
-    </tr>
-    <tr>
-    <td><b>3.</b></td>
-    <td id="highscore-name-3" >${response[2].name}</td>
-    <td id="highscore-score-3" >${response[2].score}</td>
-    </tr>
-    </table>`
-    lowestScoreOnTable = document.getElementById("highscore-score-3").innerText
+    <td><b>${index+1}.</b></td>
+    <td id="${player.name}" >${player.name}</td>
+    <td id="${player.score}" >${player.score}</td>
+    </tr>`
   }
+
   
   function highScoreReached(){
     const saveUserForm = document.getElementById("save-user-form")
     document.getElementById("save-user-score").style.display = "block";
     saveUserForm.addEventListener("submit", (e) =>{
       e.preventDefault()
-      console.log(i)
       addNewUserToScore(e.target.firstname.value)
     })
   }

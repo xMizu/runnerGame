@@ -9,4 +9,4 @@
 
 anthony = Player.create(name: "Anthony", score: 850)
 yosef = Player.create(name: "Yosef", score: 350)
-adrienne = Player.create(name: "Adrienne", score: 1)
+# adrienne = Player.create(name: "Adrienne", score: 1)

@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function collision(grass) {
     if (
       //check left
-      grass.x + 4 <= player.x + player.width - 5 &&
+      grass.x + 4 <= player.hitbox().x + player.hitbox().width - 5 &&
       //check right
-      player.x + 4 <= grass.x + 15 &&
+      player.hitbox().x + 4 <= grass.x + 15 &&
       //check top
-      player.y + player.height - 6 >= grass.y &&
+      player.hitbox().y + player.hitbox().height - 6 >= grass.y &&
       //check bottom
-      player.y <= grass.y + grass.height / 1.75
+      player.hitbox().y <= grass.y + grass.height / 1.75
     ) {
       collide = true;
       scoreHolder.innerText = `Your score was ${i + 1}`;

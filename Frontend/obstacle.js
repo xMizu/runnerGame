@@ -7,12 +7,13 @@ class Obstacle {
     this.y = y;
     this.image = new Image();
     this.image.src = "Grass.png";
-    this.velx = -6;
+    this.velx = -7;
     Obstacle.all.push(this);
   }
 
   draw(box) {
     box.drawImage(this.image, this.x, this.y, this.width, this.height);
+    box.strokeRect(this.x, this.y, this.width, this.height);
   }
 
   move() {

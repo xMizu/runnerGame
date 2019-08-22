@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let triggers = ["click", "keydown"];
   let lowestScoreOnTable;
   let highscore = [];
-  let obsVel = 6;
+  let obsVel = -5;
   //canvas
   const gameWindow = document.getElementById("gameWindow");
   const box = gameWindow.getContext("2d");
@@ -125,18 +125,30 @@ document.addEventListener("DOMContentLoaded", () => {
     i++;
   }
 
-  setInterval(swapImage, 90)
+  setInterval(swapImage, 90);
 
-  function swapImage(){
-    if (player.jumping === false){
-      if (player.image.src == "file:///Users/flatironschool/Development/mod3/Project-Mode/Mod3-Project/runnerGame/Frontend/dino-right-foot.png"){
-        player.image.src = "dino-left-foot.png"
-      } else if (player.image.src == "file:///Users/flatironschool/Development/mod3/Project-Mode/Mod3-Project/runnerGame/Frontend/dino-left-foot.png"){
-        player.image.src = "dino-right-foot.png"
+  function swapImage() {
+    if (player.jumping === false) {
+      if (player.running) {
+        player.image.src = "dino-left-foot.png";
+        player.running = false;
+      } else {
+        player.image.src = "dino-right-foot.png";
+        player.running = true;
       }
+      // if (
+      //   player.image.src ==
+      //   "file:///Users/flatironschool/Development/mod3/Project-Mode/Mod3-Project/runnerGame/Frontend/dino-right-foot.png"
+      // ) {
+      //   player.image.src = "dino-left-foot.png";
+      // } else if (
+      //   player.image.src ==
+      //   "file:///Users/flatironschool/Development/mod3/Project-Mode/Mod3-Project/runnerGame/Frontend/dino-left-foot.png"
+      // ) {
+      //   player.image.src = "dino-right-foot.png";
+      // }
     }
   }
-
 
   const highscoreSection = document.getElementById("high-score-table");
   fetch("http://localhost:3000/players")

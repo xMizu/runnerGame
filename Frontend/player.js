@@ -10,6 +10,7 @@ class Player {
     this.image.src = "dino-left-foot.png";
     this.vely = -200;
     this.jumping = false;
+    this.running = true;
     Player.all.push(this);
   }
 
@@ -35,7 +36,7 @@ class Player {
     if (this.jumping) {
       if (parseInt(this.y) <= gameWindow.height - this.height * 2) {
         this.jumping = false;
-        this.image.src = "dino-left-foot.png"
+        this.image.src = "dino-left-foot.png";
       } else {
         this.y += this.vely * delta * 1.5;
       }

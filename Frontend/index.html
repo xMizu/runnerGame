@@ -13,26 +13,36 @@
 
     <!-- Highscore box -->
     <div id="high-score-section">
-      <table id="high-score-table">
-      </table>
+      <table id="high-score-table"></table>
     </div>
 
     <div id="myModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
         <p id="score-holder"></p>
-        <span id="save-user-score" >
+        <span id="save-user-score">
           <p>YOU GOT A HIGHSCORE!</p>
           <form id="save-user-form">
+<<<<<<< HEAD
             <input  type="text" name="firstname" >
           </form>
       </span>
         <button id="new-game-button" >New Game</button>
+=======
+            <input type="text" name="firstname" />
+            <!-- <input type="submit" value="Submit"> -->
+          </form>
+        </span>
+        <button id="new-game-button" onclick="window.location.reload(true);">
+          New Game
+        </button>
+>>>>>>> 3a40e3c2845fd2138938cb28b38cb93de96acb53
       </div>
     </div>
 
     <script src="player.js"></script>
-    <script src="Obstacle.js"></script>
+    <script src="obstacle.js"></script>
+    <script src="modal.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

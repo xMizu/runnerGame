@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let collide = false;
   let triggers = ["click", "keydown"];
   let lowestScoreOnTable;
+<<<<<<< HEAD
   let highscore = []
   const newGameButton = document.getElementById("new-game-button")
 
@@ -14,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return randNumber;
     }
   }
+=======
+  let highscore = [];
+>>>>>>> 3a40e3c2845fd2138938cb28b38cb93de96acb53
 
   //canvas
   const gameWindow = document.getElementById("gameWindow");
@@ -39,6 +43,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   //   potential obstacle generator
+  function collision(grass) {
+    if (
+      //check left
+      grass.x + 4 <= player.x + player.width - 5 &&
+      //check right
+      player.x + 4 <= grass.x + 18 &&
+      //check top
+      player.y + player.height - 5 >= grass.y
+    ) {
+      collide = true;
+      scoreHolder.innerText = `Your score was ${i + 1}`;
+      modal.style.display = "block";
+      if (i > lowestScoreOnTable) {
+        highScoreReached();
+      }
+    }
+  }
+
   function obstacleSpawner() {
     if (Obstacle.all.length > 0) {
       while (Obstacle.all.length < 10) {
@@ -58,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+<<<<<<< HEAD
   function obstacleRemover(grass, index) {
     if (grass.x < -10) {
       Obstacle.all.splice(index, 1);
@@ -86,9 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   
+=======
+>>>>>>> 3a40e3c2845fd2138938cb28b38cb93de96acb53
   let delta;
   let lastTime = 0;
-  
+
   function draw(timestamp) {
     let currentTime = timestamp;
     delta = (currentTime - lastTime) / 1000;
@@ -106,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
     i++;
   }
+<<<<<<< HEAD
   
   // Get the modal
   const modal = document.getElementById("myModal");
@@ -127,11 +153,25 @@ document.addEventListener("DOMContentLoaded", () => {
     highscore.forEach(scorePlacer)})
   
   function scorePlacer(player, index){
+=======
+
+  const highscoreSection = document.getElementById("high-score-table");
+  fetch("http://localhost:3000/players")
+    .then(resp => resp.json())
+    .then(resp => {
+      highscore = resp;
+      lowestScoreOnTable = highscore[2] ? highscore[2].score : 0;
+      highscore.forEach(scorePlacer);
+    });
+
+  function scorePlacer(player, index) {
+>>>>>>> 3a40e3c2845fd2138938cb28b38cb93de96acb53
     highscoreSection.innerHTML += `
     <tr>
-    <td><b>${index+1}.</b></td>
+    <td><b>${index + 1}.</b></td>
     <td id="${player.name}" >${player.name}</td>
     <td id="${player.score}" >${player.score}</td>
+<<<<<<< HEAD
     </tr>`
   }
 
@@ -159,10 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       body: JSON.stringify({name: name, score: i})
       })
+=======
+    </tr>`;
+>>>>>>> 3a40e3c2845fd2138938cb28b38cb93de96acb53
   }
 
   requestAnimationFrame(draw);
 });
-
-
-

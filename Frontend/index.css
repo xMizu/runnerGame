@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Orbitron", sans-serif;
 }
 
 body {
@@ -18,12 +19,13 @@ canvas {
   margin-top: 50px;
   background: azure;
   opacity: 0.99;
+  border-radius: 8px;
   border-bottom: 1px solid black;
 }
 
 #high-score-section {
   text-align: left;
-  width: 130px;
+  width: auto;
   position: fixed;
   top: 20px;
   left: 10px;
@@ -56,22 +58,23 @@ canvas {
   text-align: center;
   display: flex;
   flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0);
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
   border-radius: 16px;
-  font-family: "Orbitron", sans-serif;
 }
 
 #score-holder {
   text-align: center;
-  font-family: "Orbitron", sans-serif;
+  color: red;
 }
 
 .modal-content button {
+  height: 75px;
+  width: 250px;
   align-self: center;
+  margin-top: 25px;
   padding: 5px 10px;
   border-radius: 8px;
   border: none;
@@ -86,23 +89,23 @@ canvas {
 
 @keyframes pop {
   0% {
-    font-size: 13px;
+    font-size: 16px;
     background: aquamarine;
   }
   25% {
-    font-size: 14px;
+    font-size: 17px;
     background: rgb(255, 196, 0);
   }
   50% {
-    font-size: 15px;
+    font-size: 18px;
     background: rgb(0, 255, 76);
   }
   75% {
-    font-size: 16px;
+    font-size: 19px;
     background: rgb(0, 162, 255);
   }
   100% {
-    font-size: 17px;
+    font-size: 20px;
     background: rgb(255, 0, 85);
   }
 }
@@ -118,7 +121,6 @@ canvas {
   text-align: center;
   outline: none;
   background: none;
-  font-family: "Orbitron", sans-serif;
   animation: colorize 1s linear infinite alternate;
   text-shadow: 1px 1px #2c2c2c;
 }
@@ -140,3 +142,27 @@ canvas {
     color: rgb(255, 0, 85);
   }
 }
+
+#game-over-banner {
+  font-size: 133px;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid rgba(0, 0, 0, 0); /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto 10 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 2.2s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+/* @keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+} */

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let cloud52 = new Background(200, 200, 'pictures/cloud5.png', -70, 0.5, 126)
   let cloud2 = new Background(200, 200, 'pictures/cloud2.png', -15, 0.6, 500)
   let tree = new Background(100, 100, 'pictures/tree.png', 119, 1, 360)
-  let mountain = new Background(100, 100, 'pictures/mountain.png', 130, 0.3, 4)
+  let mountain = new Background(100, 100, 'pictures/mountain.png', 130, 0.3, 90)
   let mountain2 = new Background(90, 90, 'pictures/mountain.png', 140, 0.3, 400)
 
 
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mountain2.draw(box);
     tree.draw(box);
     cloud2.draw(box);
-    box.fillText(`Your Score: ${i}`, 321, 20);
+    box.fillText(`Your Score: ${i}`, 317, 20);
     player.draw(box);
     obstacleSpawner(delta);
     Obstacle.all.forEach(element => {

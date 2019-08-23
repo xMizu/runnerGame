@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let triggers = ["click", "keydown"];
   let lowestScoreOnTable;
   let highscore = [];
-  let obsVel = -5;
+  let obsVel = -300;
+  let startingObstacles = 6;
   //canvas
   const gameWindow = document.getElementById("gameWindow");
   const box = gameWindow.getContext("2d");
@@ -77,78 +78,73 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function obstacleSpawner() {
     if (Obstacle.all.length > 0) {
-      while (Obstacle.all.length < 10) {
+      if (i % 1000 === 0) {
         let last =
           Obstacle.furthestBlock() > gameWindow.width
             ? Obstacle.furthestBlock()
             : gameWindow.width;
+        startingObstacles++;
+        obsVel -= 50;
         new Obstacle(
           gameWindow,
           16,
           16,
-          last + spawnRateX() * gameWindow.width,
+          last + spawnRateX() * gameWindow.width + 100,
           spawnRateY(),
           obsVel
         );
+      } else {
+        while (Obstacle.all.length < startingObstacles) {
+          let last =
+            Obstacle.furthestBlock() > gameWindow.width
+              ? Obstacle.furthestBlock()
+              : gameWindow.width;
+          new Obstacle(
+            gameWindow,
+            16,
+            16,
+            last + spawnRateX() * gameWindow.width,
+            spawnRateY(),
+            obsVel
+          );
+        }
       }
-      Obstacle.all.forEach((grass, index) => {
-        obstacleRemover(grass, index);
-        grass.move();
-        collision(grass);
-      });
     } else {
       new Obstacle(gameWindow, 16, 16, gameWindow.width + 50, 184, obsVel);
     }
+    Obstacle.all.forEach((grass, index) => {
+      obstacleRemover(grass, index);
+      grass.move(delta);
+      collision(grass);
+    });
   }
 
-  let delta;
+  let delta = 1 / 60;
   let lastTime = 0;
+  let accumulatedTime = 0;
 
   function draw(timestamp) {
     let currentTime = timestamp;
-    delta = (currentTime - lastTime) / 1000;
+    accumulatedTime = (currentTime - lastTime) / 1000;
     box.clearRect(0, 0, gameWindow.width, gameWindow.height);
-    // bgWidth >= -1536 ? (bgWidth -= delta * 100) : (bgWidth = 0);
-    // box.drawImage(bg, bgWidth, 0);
-    player.draw(box);
-    player.update(delta);
+    if (accumulatedTime > delta * 2) {
+      // bgWidth >= -1536 ? (bgWidth -= delta * 100) : (bgWidth = 0);
+      // box.drawImage(bg, bgWidth, 0);
+      lastTime = currentTime;
+      player.swapImage();
+    }
     box.fillText(`Hello World: ${i}`, 420, 20);
-    obstacleSpawner();
+    player.update(delta);
+    player.draw(box);
+    obstacleSpawner(delta);
     Obstacle.all.forEach(element => {
       element.update(box);
     });
-    lastTime = currentTime;
     collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
-    if (i % 1000 === 0) {
-      obsVel--;
-    }
     i++;
   }
 
-  setInterval(swapImage, 90);
-
-  function swapImage() {
-    if (player.jumping === false) {
-      if (player.running) {
-        player.image.src = "dino-left-foot.png";
-        player.running = false;
-      } else {
-        player.image.src = "dino-right-foot.png";
-        player.running = true;
-      }
-      // if (
-      //   player.image.src ==
-      //   "file:///Users/flatironschool/Development/mod3/Project-Mode/Mod3-Project/runnerGame/Frontend/dino-right-foot.png"
-      // ) {
-      //   player.image.src = "dino-left-foot.png";
-      // } else if (
-      //   player.image.src ==
-      //   "file:///Users/flatironschool/Development/mod3/Project-Mode/Mod3-Project/runnerGame/Frontend/dino-left-foot.png"
-      // ) {
-      //   player.image.src = "dino-right-foot.png";
-      // }
-    }
-  }
+  // setInterval(swapImage, 90);
 
   const highscoreSection = document.getElementById("high-score-table");
   fetch("http://localhost:3000/players")

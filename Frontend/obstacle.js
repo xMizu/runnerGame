@@ -16,8 +16,8 @@ class Obstacle {
     // box.strokeRect(this.x, this.y, this.width, this.height);
   }
 
-  move() {
-    this.x += this.velx;
+  move(delta) {
+    this.x += this.velx * delta;
   }
 
   update(box) {

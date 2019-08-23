@@ -48,4 +48,16 @@ class Player {
       }
     }
   }
+
+  swapImage() {
+    if (!this.jumping) {
+      if (this.running) {
+        this.image.src = "dino-left-foot.png";
+        this.running = false;
+      } else {
+        this.image.src = "dino-right-foot.png";
+        this.running = true;
+      }
+    }
+  }
 }

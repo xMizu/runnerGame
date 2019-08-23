@@ -11,26 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const box = gameWindow.getContext("2d");
   gameWindow.width = 400;
   gameWindow.height = 200;
-<<<<<<< HEAD
-  
+
   //background
   // constructor           (width, height, source, startingY, speed, startingX)
-  let cloud5 = new Background(200, 200, 'pictures/cloud5.png', -70, 0.5, 426)
-  let cloud52 = new Background(200, 200, 'pictures/cloud5.png', -70, 0.5, 126)
-  let cloud2 = new Background(200, 200, 'pictures/cloud2.png', -15, 0.6, 500)
-  let tree = new Background(100, 100, 'pictures/tree.png', 119, 1, 360)
-  let mountain = new Background(100, 100, 'pictures/mountain.png', 130, 0.3, 4)
-  let mountain2 = new Background(90, 90, 'pictures/mountain.png', 140, 0.3, 400)
-
+  new Background(200, 200, "pictures/cloud5.png", -70, 0.5, 426);
+  new Background(200, 200, "pictures/cloud5.png", -70, 0.5, 126);
+  new Background(200, 200, "pictures/cloud2.png", -15, 0.6, 500);
+  new Background(100, 100, "pictures/tree.png", 119, 1, 360);
+  new Background(100, 100, "pictures/mountain.png", 130, 0.3, 4);
+  new Background(90, 90, "pictures/mountain.png", 140, 0.3, 400);
 
   // special
   let easterEgg = false;
 
   //Player/Dino Class
-=======
-
-  //Testing for Class
->>>>>>> Anthony
   let player = new Player(
     gameWindow,
     32,
@@ -57,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-// Collision detection
+  // Collision detection
   function collision(grass) {
     let p = player.hitbox()[0];
     if (
@@ -80,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newGameButton.addEventListener("click", event => {
           window.location.reload(true);
         });
-        window.addEventListener("keydown", e => window.location.reload(true))
+        window.addEventListener("keydown", e => window.location.reload(true));
       }
     }
   }
@@ -156,6 +150,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function bgSpawner() {
+    if (Background.all.length > 0) {
+      while (Background.all.length < 20) {
+        let last =
+          Background.furthestBlock() > gameWindow.width
+            ? Background.furthestBlock()
+            : gameWindow.width;
+        let bg = Background.BgRandomizer();
+        let plusOrMinus = Math.random() < 0.05 ? -Math.random() : Math.random();
+        if (bg.name === "cloud") {
+          bg.y = plusOrMinus * -70;
+        } else if (bg.name === "tree") {
+          bg.y = 119;
+        } else {
+          bg.y = 400;
+        }
+        new Background(bg.size, bg.size, bg.image, bg.y, bg.speed, last + 100);
+      }
+    } else {
+      new Background(200, 200, "pictures/cloud5.png", -70, 0.75, 426);
+      new Background(200, 200, "pictures/cloud5.png", -70, 0.75, 126);
+      new Background(200, 200, "pictures/cloud2.png", -15, 0.25, 500);
+      new Background(100, 100, "pictures/tree.png", 119, 1, 360);
+      new Background(100, 100, "pictures/mountain.png", 130, 0.25, 400);
+      new Background(90, 90, "pictures/mountain.png", 140, 0.25, 400);
+    }
+    Background.all.forEach((bg, index) => {
+      bgRemover(bg, index);
+      bg.draw(box);
+    });
+  }
+
   let delta = 1 / 60;
   let lastTime = 0;
   let accumulatedTime = 0;
@@ -170,12 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
       player2.swapImage();
     }
     player.update(delta);
-    cloud5.draw(box);
-    cloud52.draw(box);
-    mountain.draw(box);
-    mountain2.draw(box);
-    tree.draw(box);
-    cloud2.draw(box);
+    bgSpawner();
     box.fillText(`Your Score: ${i}`, 321, 20);
     player.draw(box);
     obstacleSpawner(delta);

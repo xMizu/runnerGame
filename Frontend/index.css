@@ -16,7 +16,7 @@ canvas {
   width: 100%;
   margin: auto;
   margin-top: 50px;
-  background: azure;
+  background: none;
   opacity: 0.99;
   border-bottom: 1px solid black;
 }

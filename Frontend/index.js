@@ -11,16 +11,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const box = gameWindow.getContext("2d");
   gameWindow.width = 400;
   gameWindow.height = 200;
-
+  
   //background
-  let bg = new Image();
-  bg.src = "bg.png";
-  let bgWidth = 0;
+  // constructor           (width, height, source, startingY, speed, startingX)
+  let cloud5 = new Background(200, 200, 'pictures/cloud5.png', -70, 0.5, 426)
+  let cloud52 = new Background(200, 200, 'pictures/cloud5.png', -70, 0.5, 126)
+  let cloud2 = new Background(200, 200, 'pictures/cloud2.png', -15, 0.6, 500)
+  let tree = new Background(100, 100, 'pictures/tree.png', 119, 1, 360)
+  let mountain = new Background(100, 100, 'pictures/mountain.png', 130, 0.3, 4)
+  let mountain2 = new Background(90, 90, 'pictures/mountain.png', 140, 0.3, 400)
+
 
   // special
   let easterEgg = false;
 
-  //Testing for Class
+  //Player/Dino Class
   let player = new Player(
     gameWindow,
     32,
@@ -47,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  //   potential obstacle generator
+// Collision detection
   function collision(grass) {
     let p = player.hitbox()[0];
     if (
@@ -70,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newGameButton.addEventListener("click", event => {
           window.location.reload(true);
         });
+        window.addEventListener("keydown", e => window.location.reload(true))
       }
     }
   }
@@ -153,13 +159,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentTime = timestamp;
     accumulatedTime = (currentTime - lastTime) / 1000;
     box.clearRect(0, 0, gameWindow.width, gameWindow.height);
-    box.fillText(`Hello World: ${i}`, 420, 20);
-    if (accumulatedTime > delta * 2) {
+    if (accumulatedTime > delta * 4) {
       lastTime = currentTime;
       player.swapImage();
       player2.swapImage();
     }
     player.update(delta);
+    cloud5.draw(box);
+    cloud52.draw(box);
+    mountain.draw(box);
+    mountain2.draw(box);
+    tree.draw(box);
+    cloud2.draw(box);
+    box.fillText(`Your Score: ${i}`, 321, 20);
     player.draw(box);
     obstacleSpawner(delta);
     Obstacle.all.forEach(element => {
@@ -175,7 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
     collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
   }
 
-  // setInterval(swapImage, 90);
   const highscoreSection = document.getElementById("high-score-table");
   fetch("http://localhost:3000/players")
     .then(resp => resp.json())

@@ -8,9 +8,12 @@ function highScoreReached(i) {
   document.getElementById("save-user-score").style.display = "block";
   saveUserForm.addEventListener("submit", e => e.preventDefault());
   newGameHighScoreButton.addEventListener("click", event => {
-    if (saveUserForm.firstname.value) {
+    let result = /^[a-zA-Z ]+$/;
+    if (result.test(saveUserForm.firstname.value)) {
+      // if (saveUserForm.firstname.value) {
       addNewUserToScore(saveUserForm.firstname.value, i);
       window.location.reload(true);
+      // }
     } else {
       alert("Please enter a name");
     }

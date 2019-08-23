@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let i = 5000;
+  let i = 0;
   let collide = false;
   let triggers = ["click", "keydown"];
   let lowestScoreOnTable;
@@ -11,7 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const box = gameWindow.getContext("2d");
   gameWindow.width = 400;
   gameWindow.height = 200;
-
+  let windowBg = ["url('volcano.jpg')", "url('bg3.jpg')"];
+  function changeBg() {
+    document.body.style.backgroundImage =
+      windowBg[Math.floor(Math.random() * windowBg.length)];
+    document.body.style.backgroundPosition = "center";
+  }
   //background
   // constructor           (width, height, source, startingY, speed, startingX)
   new Background(200, 200, "pictures/cloud5.png", -70, 0.5, 426);
@@ -158,7 +163,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ? Background.furthestBlock()
             : gameWindow.width;
         let bg = Background.BgRandomizer();
-        let plusOrMinus = Math.random() < 0.05 ? -Math.random() : Math.random();
+        let plusOrMinus =
+          Math.random() < 0.05 ? -Math.random() - 1 : Math.random();
+        +1;
         if (bg.name === "cloud") {
           bg.y = plusOrMinus * -70;
         } else if (bg.name === "tree") {
@@ -166,15 +173,22 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           bg.y = 400;
         }
-        new Background(bg.size, bg.size, bg.image, bg.y, bg.speed, last + 100);
+        new Background(
+          bg.size,
+          bg.size,
+          bg.image,
+          bg.y,
+          bg.speed,
+          last + bg.size
+        );
       }
     } else {
       new Background(200, 200, "pictures/cloud5.png", -70, 0.75, 426);
       new Background(200, 200, "pictures/cloud5.png", -70, 0.75, 126);
       new Background(200, 200, "pictures/cloud2.png", -15, 0.25, 500);
-      new Background(100, 100, "pictures/tree.png", 119, 1, 360);
-      new Background(100, 100, "pictures/mountain.png", 130, 0.25, 400);
-      new Background(90, 90, "pictures/mountain.png", 140, 0.25, 400);
+      new Background(100, 100, "pictures/tree.png", 119, 1.5, 360);
+      new Background(100, 100, "pictures/mountain.png", 130, 0.3, 400);
+      new Background(90, 90, "pictures/mountain.png", 140, 0.3, 400);
     }
     Background.all.forEach((bg, index) => {
       bgRemover(bg, index);
@@ -210,14 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
       player2.draw(box);
       player2.update(delta);
     }
-    if (i > 5000) {
-      document.body.style.backgroundImage = "url('volcano.jpg')";
-    } else if (i > 10000) {
-      document.body.style.backgroundImage = "url('bg2.jpg')";
-    } else if (i > 15000) {
-      document.body.style.backgroundImage = "url('bg3.jpg')";
-    } else if (i > 20000) {
-      document.body.style.backgroundImage = "url('bg4.jpg')";
+    if (i % 2000 === 0) {
+      changeBg();
     }
     collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
   }

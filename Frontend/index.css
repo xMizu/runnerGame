@@ -79,7 +79,7 @@ canvas {
   border-radius: 8px;
   border: none;
   background: aquamarine;
-  font-size: 16px;
+  font-size: 24px;
   font: black;
 }
 
@@ -89,23 +89,23 @@ canvas {
 
 @keyframes pop {
   0% {
-    font-size: 16px;
+    font-size: 24px;
     background: aquamarine;
   }
   25% {
-    font-size: 17px;
+    font-size: 26px;
     background: rgb(255, 196, 0);
   }
   50% {
-    font-size: 18px;
+    font-size: 28px;
     background: rgb(0, 255, 76);
   }
   75% {
-    font-size: 19px;
+    font-size: 30px;
     background: rgb(0, 162, 255);
   }
   100% {
-    font-size: 20px;
+    font-size: 32px;
     background: rgb(255, 0, 85);
   }
 }
@@ -144,22 +144,27 @@ canvas {
 }
 
 #game-over-banner {
-  color: hotpink;
   font-size: 133px;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid rgba(0, 0, 0, 0); /* The typwriter cursor */
+  border-right: 0.15em solid rgba(0, 0, 0, 0); /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto 10 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
-  animation: 
-    typing 2.2s steps(40, end),
-    blink-caret .75s step-end infinite;
+  letter-spacing: 0.15em; /* Adjust as needed */
+  animation: typing 2.2s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
 /* The typing effect */
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+#game-over {
+  animation: colorize 1.5s linear infinite alternate;
 }
 
 /* The typewriter cursor effect */

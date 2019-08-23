@@ -13,7 +13,7 @@ class Obstacle {
 
   draw(box) {
     box.drawImage(this.image, this.x, this.y, this.width, this.height);
-    box.strokeRect(this.x, this.y, this.width, this.height);
+    // box.strokeRect(this.x, this.y, this.width, this.height);
   }
 
   move(delta) {

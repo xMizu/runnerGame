@@ -79,7 +79,7 @@ canvas {
   border-radius: 8px;
   border: none;
   background: aquamarine;
-  font-size: 12px;
+  font-size: 16px;
   font: black;
 }
 
@@ -144,6 +144,7 @@ canvas {
 }
 
 #game-over-banner {
+  color: hotpink;
   font-size: 133px;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .15em solid rgba(0, 0, 0, 0); /* The typwriter cursor */

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let i = 0;
+  let i = 5000;
   let collide = false;
   let triggers = ["click", "keydown"];
   let lowestScoreOnTable;
@@ -11,13 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const box = gameWindow.getContext("2d");
   gameWindow.width = 400;
   gameWindow.height = 200;
-<<<<<<< HEAD
   
   //background
   // constructor           (width, height, source, startingY, speed, startingX)
-  let cloud5 = new Background(200, 200, 'pictures/cloud5.png', -70, 0.5, 426)
+  let cloud5 = new Background(200, 200, 'pictures/cloud5.png', -70, 0.5, 436)
   let cloud52 = new Background(200, 200, 'pictures/cloud5.png', -70, 0.5, 126)
-  let cloud2 = new Background(200, 200, 'pictures/cloud2.png', -15, 0.6, 500)
+  let cloud2 = new Background(200, 200, 'pictures/cloud2.png', -15, 0.6, 326)
   let tree = new Background(100, 100, 'pictures/tree.png', 119, 1, 360)
   let mountain = new Background(100, 100, 'pictures/mountain.png', 130, 0.3, 90)
   let mountain2 = new Background(90, 90, 'pictures/mountain.png', 140, 0.3, 400)
@@ -27,10 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let easterEgg = false;
 
   //Player/Dino Class
-=======
-
-  //Testing for Class
->>>>>>> Anthony
   let player = new Player(
     gameWindow,
     32,

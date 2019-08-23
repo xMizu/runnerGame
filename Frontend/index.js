@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const box = gameWindow.getContext("2d");
   gameWindow.width = 400;
   gameWindow.height = 200;
+<<<<<<< HEAD
   
   //background
   // constructor           (width, height, source, startingY, speed, startingX)
@@ -26,6 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let easterEgg = false;
 
   //Player/Dino Class
+=======
+
+  //Testing for Class
+>>>>>>> Anthony
   let player = new Player(
     gameWindow,
     32,
@@ -178,11 +183,20 @@ document.addEventListener("DOMContentLoaded", () => {
       element.update(box);
     });
     i++;
-    if (i >= 250) {
+    if (i >= 1000) {
       easterEgg = true;
       --player2.x;
       player2.draw(box);
       player2.update(delta);
+    }
+    if (i > 5000) {
+      document.body.style.backgroundImage = "url('volcano.jpg')";
+    } else if (i > 10000) {
+      document.body.style.backgroundImage = "url('bg2.jpg')";
+    } else if (i > 15000) {
+      document.body.style.backgroundImage = "url('bg3.jpg')";
+    } else if (i > 20000) {
+      document.body.style.backgroundImage = "url('bg4.jpg')";
     }
     collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
   }

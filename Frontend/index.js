@@ -17,8 +17,26 @@ document.addEventListener("DOMContentLoaded", () => {
   bg.src = "bg.png";
   let bgWidth = 0;
 
+  // special
+  let easterEgg = false;
+
   //Testing for Class
-  let player = new Player(gameWindow, 32, 32);
+  let player = new Player(
+    gameWindow,
+    32,
+    32,
+    "dino-left-foot.png",
+    "dino-right-foot.png"
+  );
+  let player2 = new Player(
+    gameWindow,
+    24,
+    24,
+    "greenDino.png",
+    "greenDinoRun.png"
+  );
+  player2.x = 450;
+  player2.y = player2.y - 10;
 
   //Event listener to look for Jump
   triggers.forEach(trigger => {
@@ -31,15 +49,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //   potential obstacle generator
   function collision(grass) {
+    let p = player.hitbox()[0];
     if (
       //check left
-      grass.x + 4 <= player.hitbox().x + player.hitbox().width - 5 &&
+      grass.x < p.x + p.width &&
       //check right
-      player.hitbox().x + 4 <= grass.x + 15 &&
+      grass.x + grass.width > p.x &&
       //check top
-      player.hitbox().y + player.hitbox().height - 6 >= grass.y &&
+      grass.y <= p.y + p.height &&
       //check bottom
-      player.hitbox().y <= grass.y + grass.height / 1.75
+      grass.y + grass.height >= p.y
     ) {
       collide = true;
       scoreHolder.innerText = `Your score was ${i + 1}`;
@@ -67,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let spawnRateY = () => {
     let randNumberY = Math.random();
-    if (randNumberY < 0.5) {
+    if (randNumberY < 0.3) {
       randNumberY = gameWindow.height - player.height * 1.5;
       return randNumberY;
     } else {
@@ -110,7 +129,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     } else {
-      new Obstacle(gameWindow, 16, 16, gameWindow.width + 50, 184, obsVel);
+      new Obstacle(
+        gameWindow,
+        16,
+        16,
+        gameWindow.width + 50,
+        gameWindow.height - 16,
+        obsVel
+      );
     }
     Obstacle.all.forEach((grass, index) => {
       obstacleRemover(grass, index);
@@ -127,25 +153,29 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentTime = timestamp;
     accumulatedTime = (currentTime - lastTime) / 1000;
     box.clearRect(0, 0, gameWindow.width, gameWindow.height);
+    box.fillText(`Hello World: ${i}`, 420, 20);
     if (accumulatedTime > delta * 2) {
-      // bgWidth >= -1536 ? (bgWidth -= delta * 100) : (bgWidth = 0);
-      // box.drawImage(bg, bgWidth, 0);
       lastTime = currentTime;
       player.swapImage();
+      player2.swapImage();
     }
-    box.fillText(`Hello World: ${i}`, 420, 20);
     player.update(delta);
     player.draw(box);
     obstacleSpawner(delta);
     Obstacle.all.forEach(element => {
       element.update(box);
     });
-    collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
     i++;
+    if (i >= 250) {
+      easterEgg = true;
+      --player2.x;
+      player2.draw(box);
+      player2.update(delta);
+    }
+    collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
   }
 
   // setInterval(swapImage, 90);
-
   const highscoreSection = document.getElementById("high-score-table");
   fetch("http://localhost:3000/players")
     .then(resp => resp.json())

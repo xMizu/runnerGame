@@ -12,14 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   gameWindow.width = 400;
   gameWindow.height = 200;
 
-  //background
-  let bg = new Image();
-  bg.src = "bg.png";
-  let bgWidth = 0;
-
-  // special
-  let easterEgg = false;
-
   //Testing for Class
   let player = new Player(
     gameWindow,
@@ -166,16 +158,24 @@ document.addEventListener("DOMContentLoaded", () => {
       element.update(box);
     });
     i++;
-    if (i >= 250) {
+    if (i >= 1000) {
       easterEgg = true;
       --player2.x;
       player2.draw(box);
       player2.update(delta);
     }
+    if (i > 5000) {
+      document.body.style.backgroundImage = "url('volcano.jpg')";
+    } else if (i > 10000) {
+      document.body.style.backgroundImage = "url('bg2.jpg')";
+    } else if (i > 15000) {
+      document.body.style.backgroundImage = "url('bg3.jpg')";
+    } else if (i > 20000) {
+      document.body.style.backgroundImage = "url('bg4.jpg')";
+    }
     collide ? cancelAnimationFrame(timestamp) : requestAnimationFrame(draw);
   }
 
-  // setInterval(swapImage, 90);
   const highscoreSection = document.getElementById("high-score-table");
   fetch("http://localhost:3000/players")
     .then(resp => resp.json())
